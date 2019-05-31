@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
 
 namespace Script
@@ -27,6 +28,8 @@ namespace Script
         public MainWindow()
         {
             InitializeComponent();
+
+            Output(Properties.Settings.Default.DefautCode, this.sourceEditor);
         }
 
         bool flag = false;
@@ -34,13 +37,17 @@ namespace Script
         {
             this.programMessageBox.Text = str;
         }
-        private void Output(string str)
+        private void ScriptMessage(string str)
+        {
+            this.scriptMessageBox.Text = str;
+        }
+        private void Output(string str, RichTextBox richTextBox)
         {
             var flowDoc = new FlowDocument();
             var paragraph = new Paragraph();
             paragraph.Inlines.Add(str);
             flowDoc.Blocks.Add(paragraph);
-            this.standardOutput.Document = flowDoc;
+            richTextBox.Document = flowDoc;
         }
         public class Command
         {
@@ -100,6 +107,26 @@ namespace Script
             {
                 return this.input().Split(' ').Select(parser).ToArray();
             }
+            public IEnumerable<int> Range(int min, int max, int step = 1)
+            {
+                for (var i = min; i < max; i += step)
+                {
+                    yield return i;
+                }
+            }
+            public IEnumerable<long> Range(long min, long max, long step = 1)
+            {
+                for(var i = min; i < max; i += step)
+                {
+                    yield return i;
+                }
+            }
+        }
+
+        private string GetString(RichTextBox richTextBox)
+        {
+            var rng = new TextRange(richTextBox.Document.ContentStart, richTextBox.Document.ContentEnd);
+            return rng.Text;
         }
 
         private void RunButtonClick(object sender, RoutedEventArgs e)
@@ -111,21 +138,19 @@ namespace Script
                 var state = "";
                 try
                 {
-                    var range = new TextRange(this.standardInputEditor.Document.ContentStart, this.standardInputEditor.Document.ContentEnd);
-                    var sstream = new StringReader(range.Text);
-                    range = new TextRange(this.sourceEditor.Document.ContentStart, this.sourceEditor.Document.ContentEnd);
+                    var sstream = new StringReader(GetString(this.standardInputEditor));
                     var builder = new StringBuilder();
-                    CSharpScript.RunAsync(range.Text, globals: new Command(
+                    CSharpScript.RunAsync(GetString(this.sourceEditor), globals: new Command(
                         () => sstream.ReadLine(),
                         s => builder.Append(s),
                         s => builder.AppendLine(s),
-                        SystemMessage)).Wait();
-                    Output(builder.ToString());
+                        ScriptMessage)).Wait();
+                    Output(builder.ToString(), this.standardOutput);
                     state = "正常に終了しました。";
                 }
                 catch (Exception exp)
                 {
-                    Output(exp.ToString());
+                    Output(exp.Message, this.standardOutput);
                     state = "異常終了しました。";
                 }
                 finally
@@ -141,6 +166,64 @@ namespace Script
             else
             {
                 SystemMessage("プログラムを実行中です。");
+            }
+        }
+
+        private void SaveButtonClick(object sender, RoutedEventArgs e)
+        {
+            var sfd = new SaveFileDialog
+            {
+                DefaultExt = ".cs",
+                Filter = "CSharp File(.cs)|*.cs"
+            };
+            if (sfd.ShowDialog() == true)
+            {
+                var filename = sfd.FileName;
+                try
+                {
+                    using (var fs = new StreamWriter(filename))
+                    {
+                        fs.Write(GetString(this.sourceEditor));
+                    }
+                    SystemMessage($"{filename}に保存しました。");
+                }
+                catch(Exception exp)
+                {
+                    SystemMessage(exp.Message);
+                }
+            }
+        }
+
+        private void LoadButtonClick(object sender, RoutedEventArgs e)
+        {
+            var ofd = new OpenFileDialog
+            {
+                DefaultExt = ".cs",
+                Filter = "CSharp File(.cs)|*.cs"
+            };
+            if (ofd.ShowDialog() == true)
+            {
+                var filename = ofd.FileName;
+                try
+                {
+                    using(var fs=new StreamReader(filename))
+                    {
+                        Output(fs.ReadToEnd(), this.sourceEditor);
+                    }
+                    SystemMessage($"{filename}を開きました。");
+                }
+                catch(Exception exp)
+                {
+                    SystemMessage(exp.Message);
+                }
+            }
+        }
+
+        private void DefaultButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("デフォルトのソースコードにしますか？", "確認", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                Properties.Settings.Default.DefautCode = GetString(this.sourceEditor);
             }
         }
     }

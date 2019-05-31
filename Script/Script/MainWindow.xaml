@@ -49,5 +49,8 @@
         <TextBlock x:Name="scriptMessageBox" HorizontalAlignment="Left" Margin="415,364,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Foreground="White" Background="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}" Width="370" FontSize="16"/>
         <Button x:Name="runButton" Content="Run" HorizontalAlignment="Left" Margin="415,298,0,0" VerticalAlignment="Top" Width="99" Height="40" FontSize="18" Click="RunButtonClick"/>
         <TextBlock x:Name="programMessageBox" HorizontalAlignment="Left" Margin="415,390,0,0" TextWrapping="Wrap" Text="実行可能です" VerticalAlignment="Top" Foreground="White" Background="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}" Width="370" FontSize="16"/>
+        <Button x:Name="loadButton" Content="Load" HorizontalAlignment="Left" Margin="415,253,0,0" VerticalAlignment="Top" Width="99" Height="40" FontSize="16" Click="LoadButtonClick"/>
+        <Button x:Name="saveButton" Content="Save" HorizontalAlignment="Left" Margin="415,208,0,0" VerticalAlignment="Top" Width="99" Height="40" FontSize="16" Click="SaveButtonClick"/>
+        <Button x:Name="defaultButton" Content="Set Default" HorizontalAlignment="Left" Margin="415,41,0,0" VerticalAlignment="Top" Width="99" Height="40" FontSize="16" Click="DefaultButtonClick"/>
     </Grid>
 </Window>
