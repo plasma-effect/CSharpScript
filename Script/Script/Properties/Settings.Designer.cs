@@ -58,6 +58,9 @@ void Message(string str)
 string ReadLine()
     read one line from standard input
 
+string ReadAll()
+    read all text from standard input
+
 T[] ReadArray<T>(Func<string,T> parser)
     read one line and split by space, then transform by [parser]
 

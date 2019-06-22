@@ -103,6 +103,15 @@ namespace Script
             {
                 return this.input();
             }
+            public string ReadAll()
+            {
+                var builder = new StringBuilder();
+                while(this.input() is string str)
+                {
+                    builder.AppendLine(str);
+                }
+                return builder.ToString();
+            }
             public T[] ReadArray<T>(Func<string,T> parser)
             {
                 return this.input().Split(' ').Select(parser).ToArray();
@@ -242,10 +251,17 @@ namespace Script
             pfw.Show();
         }
 
-        private void OnPaste(object sender, ExecutedRoutedEventArgs e)
+        private void OnPasteToSource(object sender, ExecutedRoutedEventArgs e)
         {
             var text = Clipboard.GetText();
             this.sourceEditor.Selection.Text = text;
+            e.Handled = true;
+        }
+
+        private void OnPasteToStandardInput(object sender, ExecutedRoutedEventArgs e)
+        {
+            var text = Clipboard.GetText();
+            this.standardInputEditor.Selection.Text = text;
             e.Handled = true;
         }
     }

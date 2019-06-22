@@ -14,7 +14,7 @@
         </Grid.ColumnDefinitions>
         <RichTextBox x:Name="sourceEditor" HorizontalAlignment="Left" Height="402" VerticalAlignment="Top" Width="400" Margin="10,10,0,0" Block.LineHeight="1" Grid.ColumnSpan="3">
             <RichTextBox.CommandBindings>
-                <CommandBinding Command="Paste" Executed="OnPaste"/>
+                <CommandBinding Command="Paste" Executed="OnPasteToSource"/>
             </RichTextBox.CommandBindings>
             <FlowDocument>
                 <Paragraph/>
@@ -34,6 +34,9 @@
                     <Run Text=""/>
                 </Paragraph>
             </FlowDocument>
+            <RichTextBox.CommandBindings>
+                <CommandBinding Command="Paste" Executed="OnPasteToStandardInput"/>
+            </RichTextBox.CommandBindings>
         </RichTextBox>
         <Label x:Name="standardInputLabel" Content="Standard Input" HorizontalAlignment="Left" Margin="59.5,10,0,0" VerticalAlignment="Top" Foreground="White" Grid.Column="2"/>
         <Label x:Name="standardOutputLabel" Content="Standard Output" HorizontalAlignment="Left" Margin="59.5,180,0,0" VerticalAlignment="Top" Foreground="White" Grid.Column="2"/>
