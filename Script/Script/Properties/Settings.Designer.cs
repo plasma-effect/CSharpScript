@@ -12,7 +12,7 @@ namespace Script.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.1.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -32,6 +32,52 @@ namespace Script.Properties {
             }
             set {
                 this["DefautCode"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"void Write(object obj)
+    output [obj] to standard output
+
+void WriteLine()
+    begin on a new line
+
+void WriteLine(string str)
+    output [str] to standard output and begin on a new line
+
+void WriteLine(object obj)
+    output [obj] to standard output and begin on a new line
+
+void WriteLine<T>(IEnumerable<T> ts)
+    output [ts] in a row to standard output and begin on a new line
+
+void Message(string str)
+    output [str] to message box
+
+string ReadLine()
+    read one line from standard input
+
+T[] ReadArray<T>(Func<string,T> parser)
+    read one line and split by space, then transform by [parser]
+
+IEnumerable<int> Range(int min, int max, int step = 1)
+    return enumerable that is similar to boost::irange(min, max, step)
+
+IEnumerable<long> Range(long min, long max, long step = 1)
+    return enumerable that is similar to boost::irange(min, max, step)
+
+IEnumerable<int> Range(int max)
+    return enumerable that is similar to boost::irange(max)
+
+IEnumerable<long> Range(long max)
+    return enumerable than is similar to boost::irange(max)")]
+        public string PredefinedFunctions {
+            get {
+                return ((string)(this["PredefinedFunctions"]));
+            }
+            set {
+                this["PredefinedFunctions"] = value;
             }
         }
     }

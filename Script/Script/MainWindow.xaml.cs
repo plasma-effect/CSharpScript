@@ -121,6 +121,14 @@ namespace Script
                     yield return i;
                 }
             }
+            public IEnumerable<int> Range(int max)
+            {
+                return Range(default, max);
+            }
+            public IEnumerable<long> Range(long max)
+            {
+                return Range(default, max);
+            }
         }
 
         private string GetString(RichTextBox richTextBox)
@@ -138,6 +146,7 @@ namespace Script
                 var state = "";
                 try
                 {
+                    SystemMessage("処理を開始しました。");
                     var sstream = new StringReader(GetString(this.standardInputEditor));
                     var builder = new StringBuilder();
                     CSharpScript.RunAsync(GetString(this.sourceEditor), globals: new Command(
@@ -225,6 +234,12 @@ namespace Script
             {
                 Properties.Settings.Default.DefautCode = GetString(this.sourceEditor);
             }
+        }
+
+        private void MainWindowLoaded(object sender, RoutedEventArgs e)
+        {
+            var pfw = new PredefinedFunctionsWindow { Owner = this };
+            pfw.Show();
         }
     }
 }

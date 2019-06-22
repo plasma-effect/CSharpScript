@@ -5,16 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Script"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" MinWidth="800" MinHeight="450" Background="Black">
+        Title="MainWindow" Height="450" Width="800" MinWidth="800" MinHeight="450" Background="Black" Loaded="MainWindowLoaded">
     <Grid>
-        <RichTextBox x:Name="sourceEditor" HorizontalAlignment="Left" Height="402" VerticalAlignment="Top" Width="400" Margin="10,10,0,0" FontSize="16" Block.LineHeight="1">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="309*"/>
+            <ColumnDefinition Width="47*"/>
+            <ColumnDefinition Width="440*"/>
+        </Grid.ColumnDefinitions>
+        <RichTextBox x:Name="sourceEditor" HorizontalAlignment="Left" Height="402" VerticalAlignment="Top" Width="400" Margin="10,10,0,0" Block.LineHeight="1" Grid.ColumnSpan="3">
             <FlowDocument>
-                <Paragraph>
-                    <Run Text=""/>
-                </Paragraph>
+                <Paragraph/>
             </FlowDocument>
         </RichTextBox>
-        <RichTextBox x:Name="standardInputEditor" HorizontalAlignment="Right" Height="160" Margin="519,10,10,0" VerticalAlignment="Top" Width="260" RenderTransformOrigin="0.5,0.5" FontSize="16" Block.LineHeight="1">
+        <RichTextBox x:Name="standardInputEditor" HorizontalAlignment="Right" Height="160" Margin="0,10,10,0" VerticalAlignment="Top" Width="260" RenderTransformOrigin="0.5,0.5" Block.LineHeight="1" Grid.Column="2">
             <RichTextBox.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -29,9 +32,9 @@
                 </Paragraph>
             </FlowDocument>
         </RichTextBox>
-        <Label x:Name="standardInputLabel" Content="Standard Input" HorizontalAlignment="Left" Margin="415,10,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <Label x:Name="standardOutputLabel" Content="Standard Output" HorizontalAlignment="Left" Margin="415,180,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <RichTextBox x:Name="standardOutput" HorizontalAlignment="Center" Height="160" Margin="524,180,10,0" VerticalAlignment="Top" Width="260" RenderTransformOrigin="0.5,0.5" FontSize="16" Block.LineHeight="1">
+        <Label x:Name="standardInputLabel" Content="Standard Input" HorizontalAlignment="Left" Margin="59.5,10,0,0" VerticalAlignment="Top" Foreground="White" Grid.Column="2"/>
+        <Label x:Name="standardOutputLabel" Content="Standard Output" HorizontalAlignment="Left" Margin="59.5,180,0,0" VerticalAlignment="Top" Foreground="White" Grid.Column="2"/>
+        <RichTextBox x:Name="standardOutput" HorizontalAlignment="Center" Height="160" Margin="168.5,180,11,0" VerticalAlignment="Top" Width="260" RenderTransformOrigin="0.5,0.5" Block.LineHeight="1" Grid.Column="2">
             <RichTextBox.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -46,11 +49,11 @@
                 </Paragraph>
             </FlowDocument>
         </RichTextBox>
-        <TextBlock x:Name="scriptMessageBox" HorizontalAlignment="Left" Margin="415,364,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Foreground="White" Background="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}" Width="370" FontSize="16"/>
-        <Button x:Name="runButton" Content="Run" HorizontalAlignment="Left" Margin="415,298,0,0" VerticalAlignment="Top" Width="99" Height="40" FontSize="18" Click="RunButtonClick"/>
-        <TextBlock x:Name="programMessageBox" HorizontalAlignment="Left" Margin="415,390,0,0" TextWrapping="Wrap" Text="実行可能です" VerticalAlignment="Top" Foreground="White" Background="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}" Width="370" FontSize="16"/>
-        <Button x:Name="loadButton" Content="Load" HorizontalAlignment="Left" Margin="415,253,0,0" VerticalAlignment="Top" Width="99" Height="40" FontSize="16" Click="LoadButtonClick"/>
-        <Button x:Name="saveButton" Content="Save" HorizontalAlignment="Left" Margin="415,208,0,0" VerticalAlignment="Top" Width="99" Height="40" FontSize="16" Click="SaveButtonClick"/>
-        <Button x:Name="defaultButton" Content="Set Default" HorizontalAlignment="Left" Margin="415,41,0,0" VerticalAlignment="Top" Width="99" Height="40" FontSize="16" Click="DefaultButtonClick"/>
+        <TextBlock x:Name="scriptMessageBox" HorizontalAlignment="Left" Margin="59.5,364,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Foreground="White" Background="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}" Width="370" FontSize="16" Grid.Column="2"/>
+        <Button x:Name="runButton" Content="Run" HorizontalAlignment="Left" Margin="59.5,298,0,0" VerticalAlignment="Top" Width="99" Height="40" FontSize="18" Click="RunButtonClick" Grid.Column="2"/>
+        <TextBlock x:Name="programMessageBox" HorizontalAlignment="Left" Margin="59.5,390,0,0" TextWrapping="Wrap" Text="実行可能です" VerticalAlignment="Top" Foreground="White" Background="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}" Width="370" FontSize="16" Grid.Column="2"/>
+        <Button x:Name="loadButton" Content="Load" HorizontalAlignment="Left" Margin="59.5,253,0,0" VerticalAlignment="Top" Width="99" Height="40" FontSize="16" Click="LoadButtonClick" Grid.Column="2"/>
+        <Button x:Name="saveButton" Content="Save" HorizontalAlignment="Left" Margin="59.5,208,0,0" VerticalAlignment="Top" Width="99" Height="40" FontSize="16" Click="SaveButtonClick" Grid.Column="2"/>
+        <Button x:Name="defaultButton" Content="Set Default" HorizontalAlignment="Left" Margin="59.5,41,0,0" VerticalAlignment="Top" Width="99" Height="40" FontSize="16" Click="DefaultButtonClick" Grid.Column="2"/>
     </Grid>
 </Window>
