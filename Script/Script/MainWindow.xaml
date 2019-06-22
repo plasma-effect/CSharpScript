@@ -13,6 +13,9 @@
             <ColumnDefinition Width="440*"/>
         </Grid.ColumnDefinitions>
         <RichTextBox x:Name="sourceEditor" HorizontalAlignment="Left" Height="402" VerticalAlignment="Top" Width="400" Margin="10,10,0,0" Block.LineHeight="1" Grid.ColumnSpan="3">
+            <RichTextBox.CommandBindings>
+                <CommandBinding Command="Paste" Executed="OnPaste"/>
+            </RichTextBox.CommandBindings>
             <FlowDocument>
                 <Paragraph/>
             </FlowDocument>

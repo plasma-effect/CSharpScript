@@ -241,5 +241,12 @@ namespace Script
             var pfw = new PredefinedFunctionsWindow { Owner = this };
             pfw.Show();
         }
+
+        private void OnPaste(object sender, ExecutedRoutedEventArgs e)
+        {
+            var text = Clipboard.GetText();
+            this.sourceEditor.Selection.Text = text;
+            e.Handled = true;
+        }
     }
 }
